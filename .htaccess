@@ -1,0 +1,111 @@
+
+RewriteEngine On
+
+
+#general Decline FOLDERS
+#Decline folder/directory listing from URL_ADDRESS_BAR for GENERAL
+RedirectMatch 403 ^/account/?$
+RedirectMatch 403 ^/account/pages/?$
+RedirectMatch 403 ^/account/assets/?$
+RedirectMatch 403 ^/account/image/?$
+RedirectMatch 403 ^/account/includes/?$
+RedirectMatch 403 ^/account/pages/?$
+
+
+RedirectMatch 403 ^/admin/?$
+RedirectMatch 403 ^/images/?$
+RedirectMatch 403 ^/connection/?$
+RedirectMatch 403 ^/css/?$
+RedirectMatch 403 ^/js/?$
+RedirectMatch 403 ^/fonts/?$
+RedirectMatch 403 ^/vendor/?$
+RedirectMatch 403 ^/inc/?$
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/index
+# its convert index.php to index
+# its remove .php extention
+RewriteRule ^index?$ index.php
+
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/login
+# its convert login.php to login
+# its remove .php extention
+RewriteRule ^login?$ login.php
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/register
+# its convert register.php to register
+# its remove .php extention
+RewriteRule ^register?$ register.php
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/signup for global users
+# its convert signup.php to signup
+# its remove .php extention
+RewriteRule ^signup?$ signup.php
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/forgot
+# its convert forgot.php to forgot
+# its remove .php extention
+RewriteRule ^password_reset?$ password_reset.php
+RewriteRule ^password_reset/([0-9a-zA-Z]+) password_reset.php?external_token=$1
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/activate
+# its convert activate.php to activate
+# its remove .php extention
+RewriteRule ^activate?$ activate.php
+RewriteRule ^activate/([0-9a-zA-Z]+) activate.php?token=$1
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/confirm
+# its convert confirm.php to confirm
+# its remove .php extention
+RewriteRule ^confirm?$ confirm.php
+RewriteRule ^confirm/([0-9a-zA-Z]+) confirm.php?confirm_msg=$1
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/email_handler
+# its convert email_handler.php to email_handler
+# its remove .php extention
+RewriteRule ^pages/email_handler?$ pages/email_handler.php
+RewriteRule ^phpmailer/mail?$ phpmailer/mail.php
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/example
+# its convert example.php to example
+# its remove .php extention
+RewriteRule ^example?$ example.php
+
+
+
+
+
+#Decline all pages which is not in this server or u can say show error when user type wrong url
+ErrorDocument 404 /404.html
+
+#force not to show .php ext at the end or URL when user typed in url_bar
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)\.php
+RewriteRule ^ /%1 [L,R=301]
+
+
+
+
+
+
+
+#---------------------------USERS-----------------------------------------------------------------------------
+
+#Decline FOLDERS
+#Decline folder/directory listing from URL_ADDRESS_BAR for GENERAL
+RedirectMatch 403 ^/account/?$
+
+
+#---------------------------DOMAIN-----------------------------------------------------------------------------
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW SSL_REDIRECT:paypertag.tk
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^paypertag.tk$
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE SSL_REDIRECT:paypertag.tk

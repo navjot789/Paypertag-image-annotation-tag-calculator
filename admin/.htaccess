@@ -1,0 +1,42 @@
+RewriteEngine On
+RewriteRule ^$ /login.php [L]
+
+#general Decline FOLDERS
+#Decline folder/directory listing from URL_ADDRESS_BAR for GENERAL
+RedirectMatch 403 ^/assets/?$
+RedirectMatch 403 ^/includes/?$
+RedirectMatch 403 ^/modules/?$
+RedirectMatch 403 ^/theme/?$
+
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/dashboard
+# its convert dashboard.php to dashboard
+# its remove .php extention
+RewriteRule ^dashboard?$ dashboard.php
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/login
+# its convert login.php to login
+# its remove .php extention
+RewriteRule ^login?$ login.php
+
+# by writing the below rule: we can excess the index.php page with:http://example.com/logout
+# its convert logout.php to logout
+# its remove .php extention
+RewriteRule ^logout?$ logout.php
+
+#Decline all pages which is not in this server or u can say show error when user type wrong url
+ErrorDocument 404 /404.html
+
+#force not to show .php ext at the end or URL when user typed in url_bar
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(.*)\.php
+RewriteRule ^ /%1 [L,R=301]
+
+
+
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW SSL_REDIRECT:care.paypertag.tk
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^care.paypertag.tk$
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE SSL_REDIRECT:care.paypertag.tk
